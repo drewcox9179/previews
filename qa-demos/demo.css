@@ -207,3 +207,18 @@ section.tight{padding:56px 0}
   section{padding:64px 0}
   body{font-size:16px}
 }
+
+/* small-screen polish */
+[id]{scroll-margin-top:90px}
+.cbar .short{display:none}
+@media (max-width:760px){
+  .cbar .wrap{padding:7px 0;gap:8px;flex-wrap:nowrap}
+  .cbar .long{display:none}
+  .cbar .short{display:inline}
+  .cbar nav a:not(.go){display:none}
+  .cbar a.go{white-space:nowrap;font-size:12.5px}
+  .site-head nav .btn{display:none}
+  .logo-name{font-size:19px}
+  .hero{min-height:620px}
+  .hero .wrap{padding:90px 0 110px}
+}
