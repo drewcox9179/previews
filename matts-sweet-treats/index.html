@@ -14,7 +14,8 @@
  .logo-name small{font-family:Poppins,sans-serif}
  .logo-mark{background:linear-gradient(135deg,#d63b84,#c99a2e);font-family:'Great Vibes',cursive;font-size:26px;font-weight:400}
  .hero-split h1 em{font-family:'Great Vibes',cursive;font-style:normal;font-weight:400;color:var(--accent);font-size:1.25em;line-height:.8}
- .gold{color:#b8862a}
+ #menu .services{grid-template-columns:repeat(3,1fr)}
+ @media (max-width:860px){#menu .services{grid-template-columns:1fr}}
  .events{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:8px}
  .events div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;font-weight:600}
  .events span{display:block;font-size:30px;margin-bottom:6px}
@@ -32,7 +33,7 @@
 <body style="--display-font:'Playfair Display',serif;--body-font:Poppins,sans-serif;--bg:#fff6f9;--card:#ffffff;--ink:#3a1f2b;--muted:#7d5f6c;--line:#f3dbe5;--accent:#d63b84;--on-accent:#fff;--accent-ink:#c02a72;--strip-bg:#3a1f2b;--strip-ink:#ffe3ef;--chip:#fbe4ee;--accent-soft:#fde7f1;--foot-bg:#3a1f2b;--radius-btn:99px;--radius-card:22px;--radius-img:22px;--mark-radius:50%;--callbar-alt:#3a1f2b">
 <div class="pbar"><div class="wrap"><span>&#10024; Free website preview made for <b>Matt's Sweet Treats</b></span><span class="r">by <a href="https://drewcoxwebdesign.com">Drew Cox Web Design</a></span></div></div>
 <header class="site-head"><div class="wrap">
-  <a class="logo" href="#top"><span class="logo-mark">M</span><span class="logo-name">Matt's Sweet Treats<small>Homemade sweets &middot; Starkville, MS</small></span></a>
+  <a class="logo" href="#top"><span class="logo-name">Matt's Sweet Treats<small>Homemade sweets &middot; Starkville, MS</small></span></a>
   <nav><a href="#menu">Treats</a><a href="#events">Events</a><a href="#order">Order</a><a class="btn sm" href="sms:6015800247">Text to order</a></nav>
 </div></header>
 <main id="top">
