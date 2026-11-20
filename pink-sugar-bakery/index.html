@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pink Sugar Bakery – Website Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--cream:#fff5f7;--paper:#fffafb;--blush:#f7d4dd;--rose:#d6527a;--sage:#c0476b;--espresso:#4a2230;--muted:#8a6b75;--line:#f1d9e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--espresso);font-family:Jost,system-ui,sans-serif;font-weight:400;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .preview-bar{background:var(--espresso);color:#f3e6dc;font-size:13px;text-align:center;padding:8px 14px}
+  .preview-bar a{text-decoration:underline}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  nav{position:sticky;top:0;z-index:10;background:rgba(250,245,238,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{font-family:"Cormorant Garamond",serif;font-size:25px;font-weight:600;line-height:1}
+  .logo small{display:block;font-family:Jost;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-top:4px}
+  nav ul{display:flex;gap:28px;list-style:none;font-size:14px;letter-spacing:.5px}
+  nav ul a:hover{color:var(--rose)}
+  .btn{display:inline-block;background:var(--espresso);color:var(--cream);padding:13px 28px;border-radius:40px;font-size:14px;letter-spacing:1px;border:0;cursor:pointer;font-family:inherit;transition:.2s}
+  .btn:hover{background:var(--rose)}
+  .btn.light{background:transparent;color:var(--espresso);border:1px solid var(--espresso)}
+  .btn.light:hover{background:var(--espresso);color:var(--cream)}
+  h1,h2{font-family:"Cormorant Garamond",serif;font-weight:500;line-height:1.05}
+  h1{font-size:clamp(46px,7vw,84px)}
+  h1 em,h2 em{color:var(--rose)}
+  h2{font-size:clamp(36px,5vw,56px);margin-bottom:12px}
+  .eyebrow{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);font-weight:500}
+  .hero{padding:80px 0 90px}
+  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .hero p{color:var(--muted);font-size:18px;margin:22px 0 32px;max-width:480px;font-weight:300}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .arch{position:relative;height:500px}
+  .arch .a1,.arch .a2{position:absolute;border-radius:200px 200px 14px 14px;display:flex;align-items:flex-end;justify-content:center;padding:24px;font-size:13px;letter-spacing:1px;color:#fff}
+  .arch .a1{left:0;top:0;width:62%;height:88%;background:linear-gradient(160deg,#f29bb6,#d6527a)}
+  .arch .a2{right:0;bottom:0;width:48%;height:62%;background:linear-gradient(160deg,#fbd5de,#e9899f);border:8px solid var(--cream)}
+  .cup{position:absolute;left:46%;top:44%;background:var(--paper);border-radius:50%;width:110px;height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(59,42,36,.15);font-family:"Cormorant Garamond";font-size:15px;text-align:center;line-height:1.1}
+  .cup b{font-size:26px;color:var(--rose)}
+  section{padding:96px 0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .split a{padding:60px 50px;transition:.3s;display:block}
+  .split a:first-child{border-right:1px solid var(--line)}
+  .split a:hover{background:var(--paper)}
+  .split h3{font-family:"Cormorant Garamond";font-size:38px;font-weight:500;margin:10px 0}
+  .split p{color:var(--muted);font-weight:300}
+  .split .go{margin-top:18px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--rose)}
+  .center{text-align:center}
+  .center .sub{margin:0 auto 50px}
+  .sub{color:var(--muted);font-weight:300;max-width:560px;margin-bottom:46px}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:6px 60px}
+  .item{display:flex;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px dashed var(--line)}
+  .item h4{font-family:"Cormorant Garamond";font-size:24px;font-weight:500}
+  .item .dots{flex:1}
+  .item span{font-size:13px;color:var(--sage);letter-spacing:1px}
+  .item p{font-size:14px;color:var(--muted);font-weight:300}
+  .item div{flex:1}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .ph{aspect-ratio:4/5;border-radius:10px;background:linear-gradient(170deg,#efe3d8,#e5d3c5);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a8928a;font-size:13px;gap:10px;border:1px dashed #d6c2b5}
+  .ph svg{width:34px;height:34px}
+  .boutique{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .shop{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card .ph{aspect-ratio:3/4;background:linear-gradient(170deg,#e4e9e1,#d2dacd);border-color:#c3ccbd;color:#8a9a83}
+  .card h5{font-family:"Cormorant Garamond";font-size:20px;font-weight:500;margin-top:12px}
+  .card small{color:var(--muted);font-size:13px}
+  .book{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+  form{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:34px;display:grid;gap:14px}
+  label{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:grid;gap:7px}
+  input,select,textarea{border:1px solid var(--line);background:var(--cream);border-radius:8px;padding:12px;font:inherit;font-size:15px;color:var(--espresso);text-transform:none;letter-spacing:0}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--rose)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .note{display:none;background:#f6e4cf;color:var(--rose);border-radius:8px;padding:12px;font-size:14px}
+  .visit{background:var(--espresso);color:#f3e6dc}
+  .visit .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .visit h3{font-family:"Cormorant Garamond";font-size:30px;font-weight:500;margin-bottom:14px;color:#fff}
+  .visit p,.visit li{font-weight:300;color:#d9c8bd}
+  .visit ul{list-style:none}
+  .visit li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  footer{padding:30px 0;text-align:center;font-size:13px;color:var(--muted)}
+  footer a{color:var(--rose)}
+  @media(max-width:860px){
+    nav ul{display:none}
+    .hero .wrap,.book,.split,.menu,.visit .wrap{grid-template-columns:1fr}
+    .arch{height:380px}
+    .split a:first-child{border-right:0;border-bottom:1px solid var(--line)}
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .shop{grid-template-columns:repeat(2,1fr)}
+    .row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="preview-bar">Concept preview made by Drew Cox Web Design for Pink Sugar Bakery. This is not the official site yet. <a href="https://drewcoxwebdesign.com">drewcoxwebdesign.com</a></div>
+<nav><div class="wrap">
+  <a href="#top" class="logo">Pink Sugar<small>Bakery</small></a>
+  <ul><li><a href="#menu">Treats</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#book">Order</a></li><li><a href="#visit">Visit</a></li></ul>
+  <a href="#book" class="btn" style="padding:10px 20px">Order a Cake</a>
+</div></nav>
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <div class="eyebrow">Downtown Vicksburg, Mississippi</div>
+    <h1>Sweet things,<br><em>made pink.</em></h1>
+    <p>Cheesecakes, banana pudding, cookies, cupcakes and custom cakes, baked fresh in downtown Vicksburg. Order a custom cake or stop by early before we sell out.</p>
+    <div class="ctas"><a href="#book" class="btn">Order a Cake</a><a href="#menu" class="btn light">Treats</a></div>
+  </div>
+  <div class="arch"><div class="a1">Your cakes</div><div class="a2">Your shop</div><div class="cup"><b>&hearts;</b>baked<br>fresh</div></div>
+</div></header>
+<section id="menu" class="boutique"><div class="wrap">
+  <div class="center"><div class="eyebrow">Treats</div><h2>Featured <em>Treats</em></h2><p class="sub">Your real menu goes here. These are based on what you already offer.</p></div>
+  <div class="menu"><div class="item"><div><h4>Cheesecakes</h4><p>Creamy and made fresh</p></div><span>Order</span></div><div class="item"><div><h4>Banana Pudding</h4><p>A Southern favorite</p></div><span>Order</span></div><div class="item"><div><h4>Cookies</h4><p>Soft and loaded</p></div><span>Order</span></div><div class="item"><div><h4>Cupcakes</h4><p>Classic and seasonal flavors</p></div><span>Order</span></div><div class="item"><div><h4>Custom Cakes</h4><p>Birthdays, showers and more</p></div><span>Order</span></div><div class="item"><div><h4>Event Catering</h4><p>Dessert tables for any occasion</p></div><span>Order</span></div></div>
+</div></section>
+<section id="gallery"><div class="wrap">
+  <div class="center"><div class="eyebrow">The Work</div><h2>Fresh from the <em>Kitchen</em></h2><p class="sub">Real photos of your work go here. These are placeholders to show the layout.</p></div>
+  <div class="gallery"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/></svg>Custom cakes</div><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/></svg>Cupcakes</div><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/></svg>Dessert tables</div></div>
+</div></section>
+<section id="book" class="boutique"><div class="wrap book">
+  <div><div class="eyebrow">Custom orders</div><h2>Request a <em>Custom Order</em></h2><p class="sub">Customers tell you the date and what they want, and the request comes straight to your phone or email, so orders stop getting lost in messages.</p></div>
+  <form id="f">
+    <div class="row"><label>Name<input required placeholder="Your name"></label><label>Phone<input required placeholder="(601) 000-0000"></label></div>
+    <label>What are you ordering?<select><option>Cheesecakes</option><option>Banana Pudding</option><option>Cookies</option><option>Cupcakes</option><option>Custom Cakes</option><option>Event Catering</option></select></label>
+    <div class="row"><label>Preferred day<input type="date"></label><label>Time<select><option>Morning</option><option>Midday</option><option>Afternoon</option></select></label></div>
+    <label>Notes<textarea rows="3" placeholder="Date needed, size, flavors, colors..."></textarea></label>
+    <button class="btn" type="submit">Request Order</button>
+    <div class="note" id="n">This is a preview, so nothing was sent. On the live site this request comes straight to you.</div>
+  </form>
+</div></section>
+<section id="visit" class="visit"><div class="wrap">
+  <div><h3>Visit</h3><p>1412 Washington Street<br>Vicksburg, MS</p></div>
+  <div><h3>Hours</h3><ul><li><span>Sun - Mon</span><span>Closed</span></li><li><span>Tue - Sat</span><span>11am - 7pm</span></li></ul></div>
+  <div><h3>Call</h3><p>601-738-3759</p></div>
+</div></section>
+<footer>© Pink Sugar Bakery · Downtown Vicksburg, Mississippi<br>Website preview designed by <a href="https://drewcoxwebdesign.com">Drew Cox Web Design</a></footer>
+<script>
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();document.getElementById('n').style.display='block'});
+</script>
+</body>
+</html>
