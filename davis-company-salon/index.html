@@ -535,6 +535,19 @@ html.js .hero-media .ph-b{transition-delay:.45s}
   .panel{animation:none}
   .ph img{transition:none}
 }
+
+/* Gallery */
+.gallery{columns:3;column-gap:18px}
+.g-item{break-inside:avoid;margin:0 0 18px}
+.g-btn{display:block;width:100%;padding:0;border:0;background:#efebe5;cursor:zoom-in;overflow:hidden}
+.g-btn img{display:block;width:100%;height:auto;transition:transform 1.2s var(--ease)}
+.g-btn:hover img,.g-btn:focus-visible img{transform:scale(1.04)}
+.g-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+@media (max-width:900px){.gallery{columns:2;column-gap:12px}.g-item{margin-bottom:12px}}
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(17,17,17,.94);display:flex;align-items:center;justify-content:center;padding:24px}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain}
+.lb-close{position:absolute;top:14px;right:20px;background:none;border:0;color:#fff;font-size:2.6rem;line-height:1;cursor:pointer}
 </style>
 </head>
 <body>
@@ -574,6 +587,7 @@ html.js .hero-media .ph-b{transition-delay:.45s}
       <li><a href="#specialties">Specialties</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#stylists">Stylists</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#policy">Policies</a></li>
       <li><a href="#visit">Visit</a></li>
     </ul>
@@ -588,6 +602,7 @@ html.js .hero-media .ph-b{transition-delay:.45s}
       <li><a href="#specialties">Specialties</a></li>
       <li><a href="#services">Services &amp; Pricing</a></li>
       <li><a href="#stylists">Meet the Stylists</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#policy">Booking Policy</a></li>
       <li><a href="#visit">Hours &amp; Location</a></li>
     </ul>
@@ -708,6 +723,32 @@ html.js .hero-media .ph-b{transition-delay:.45s}
 </section>
 
 <!-- ===== 7. Retail ===== -->
+<!-- ===== Gallery ===== -->
+<section class="section" id="gallery" aria-labelledby="gallery-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Gallery</span>
+      <h2 id="gallery-title">Recent <em>work</em>.</h2>
+      <p>A look at color, cuts and styling from our chairs. Tap any photo to see it larger.</p>
+    </div>
+    <div class="gallery">
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-copper-layers.jpg" aria-label="View larger: Long layered copper hair, back view, with a leaf tattoo on the arm"><img src="img/gallery-copper-layers.jpg" alt="Long layered copper hair, back view, with a leaf tattoo on the arm" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-bridal-updo-curls.jpg" aria-label="View larger: Soft golden-brown curls with a braided half-up style"><img src="img/gallery-bridal-updo-curls.jpg" alt="Soft golden-brown curls with a braided half-up style" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-pink-black-curls.jpg" aria-label="View larger: Black curls with hot pink highlights"><img src="img/gallery-pink-black-curls.jpg" alt="Black curls with hot pink highlights" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-silver-blonde.jpg" aria-label="View larger: Silver-blonde waves, back view"><img src="img/gallery-silver-blonde.jpg" alt="Silver-blonde waves, back view" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-pink-blonde.jpg" aria-label="View larger: Long blonde hair with pink and magenta ends"><img src="img/gallery-pink-blonde.jpg" alt="Long blonde hair with pink and magenta ends" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-brunette-balayage.jpg" aria-label="View larger: Brunette balayage melting into copper ends"><img src="img/gallery-brunette-balayage.jpg" alt="Brunette balayage melting into copper ends" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-black-waves.jpg" aria-label="View larger: Long dark hair styled in loose waves"><img src="img/gallery-black-waves.jpg" alt="Long dark hair styled in loose waves" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/hero-color-ombre.jpg" aria-label="View larger: Red-to-gold ombré waves"><img src="img/hero-color-ombre.jpg" alt="Red-to-gold ombré waves" loading="lazy" decoding="async"></button></figure>
+      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/hero-shag-cut.jpg" aria-label="View larger: Layered shag with copper color"><img src="img/hero-shag-cut.jpg" alt="Layered shag with copper color" loading="lazy" decoding="async"></button></figure>
+    </div>
+  </div>
+</section>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button type="button" class="lb-close" aria-label="Close photo">&times;</button>
+  <img alt="" id="lb-img">
+</div>
+
 <section class="section bg-alabaster" id="shop" aria-labelledby="shop-title">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -1068,6 +1109,22 @@ html.js .hero-media .ph-b{transition-delay:.45s}
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
+
+  /* ---------- Gallery lightbox ---------- */
+  (function () {
+    var lb = document.getElementById('lightbox'), lbImg = document.getElementById('lb-img');
+    if (!lb) return;
+    var last = null;
+    function close() { lb.hidden = true; document.body.style.overflow = ''; if (last) last.focus(); }
+    document.querySelectorAll('.g-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        last = b; lbImg.src = b.getAttribute('data-full'); lbImg.alt = b.querySelector('img').alt;
+        lb.hidden = false; document.body.style.overflow = 'hidden'; lb.querySelector('.lb-close').focus();
+      });
+    });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) close(); });
+  })();
 })();
 </script>
 </body>
