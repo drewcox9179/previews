@@ -64,8 +64,8 @@ window.CONFIG = {
     heroMain:   "img/hero-color-ombre.jpg",   // tall hero photo: salon interior or signature color
     heroDetail: "img/hero-shag-cut.jpg",   // small hero photo: close-up detail
     wigs:       "img/wigs-topper.jpg",   // Wigs & Toppers specialty
-    thinning:   "",   // Thinning Hair Solutions specialty
-    lashes:     "",   // Lash specialty
+    thinning:   "https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?fm=jpg&q=70&w=1400&auto=format&fit=crop",  // Free Unsplash photo by Jenna Oslin (unsplash.com/@jennaoslin), loaded from Unsplash. Swap for a real client result when one is available.   // Thinning Hair Solutions specialty
+    lashes:     "img/lashes.jpg",   // Lash specialty
     kristen:    "img/stylist-kristen.jpg",
     lexi:       "img/stylist-lexi.jpg",
     melissa:    "img/stylist-melissa.jpg",
@@ -202,6 +202,8 @@ window.CONFIG = {
 </script>
 
 <title>Davis &amp; Company Salon | Hair, Lashes, Wigs &amp; Toppers in Brookhaven, MS</title>
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo-square.jpg">
 <meta name="description" content="Davis & Company Salon in Brookhaven, Mississippi: custom color, cuts, extensions, braids, lashes, wigs, toppers and thinning-hair solutions. Complimentary consultations. Book online with Vagaro.">
 <meta name="theme-color" content="#111111">
 <meta name="robots" content="noindex, nofollow"><!-- PREVIEW ONLY: remove this line when the site goes live on its own domain -->
@@ -288,6 +290,7 @@ p{margin:0}
 .ph.has-img::before{display:none}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
 .ph[data-photo="wigs"] img{object-position:50% 0%}
+.ph[data-photo="lashes"] img{object-position:50% 30%}
 .zoom:hover .ph img,.ph.zoom:hover img{transform:scale(1.045)}
 
 /* ---------- Header ---------- */
@@ -605,12 +608,7 @@ body.bk-open{overflow:hidden}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="emblem" viewBox="0 0 120 120">
-      <circle cx="60" cy="60" r="60" fill="#111111"/>
-      <circle cx="60" cy="60" r="53.5" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width=".7"/>
-      <text x="60" y="36" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="5.6" letter-spacing="3.4" fill="#FFFFFF" fill-opacity=".8">SALON</text>
-      <text x="60" y="68" text-anchor="middle" font-family="'Pinyon Script', 'Snell Roundhand', cursive" font-size="37" fill="#FFFFFF">Davis</text>
-      <text x="61" y="84" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="7.4" letter-spacing="2.6" fill="#FFFFFF">&amp; COMPANY</text>
-      <line x1="53" y1="93" x2="67" y2="93" stroke="#9B1B30" stroke-width="1.4"/>
+      <image href="img/logo.png" width="120" height="120"/>
     </symbol>
     <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7 2 2 0 0 1 6.6 3.5z"/></symbol>
@@ -718,7 +716,7 @@ body.bk-open{overflow:hidden}
         </div>
       </article>
       <article class="spec-card zoom reveal d1">
-        <div class="ph" data-photo="thinning" data-alt="A guest after a thinning-hair service" data-label="Photo · thinning · confident result"></div>
+        <div class="ph" data-photo="thinning" data-alt="A stylist using a round brush on long, full hair" data-label="Photo · thinning · confident result"></div>
         <div class="spec-body">
           <span class="spec-num">02</span>
           <h3>Thinning Hair Solutions</h3>
@@ -727,7 +725,7 @@ body.bk-open{overflow:hidden}
         </div>
       </article>
       <article class="spec-card zoom reveal d2">
-        <div class="ph" data-photo="lashes" data-alt="Lash extensions" data-label="Photo · lashes · lash close-up"></div>
+        <div class="ph" data-photo="lashes" data-alt="Full set of lash extensions done at Davis &amp; Company" data-label="Photo · lashes · lash close-up"></div>
         <div class="spec-body">
           <span class="spec-num">03</span>
           <h3>Lashes</h3>
