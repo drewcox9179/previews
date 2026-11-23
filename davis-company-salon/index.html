@@ -1215,8 +1215,8 @@ body.bk-open{overflow:hidden}
       if (p.key === 'any') { hint.hidden = true; }
       else { hint.innerHTML = 'Below, choose <b>' + esc(p.name) + '</b> under &ldquo;Choose a Professional&rdquo;, then pick your service and time.'; hint.hidden = false; }
       var url = GENERAL;
-      if (current === url) return;
-      current = url; loading.classList.remove('done');
+      if (current === p.key) return;          // same stylist: keep their progress
+      current = p.key; loading.classList.remove('done');
       // Swap in a fresh frame so stylist changes never add browser-history steps
       var nf = ifr.cloneNode(false); nf.removeAttribute('src');
       nf.addEventListener('load', onLoad); nf.src = url;
