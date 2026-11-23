@@ -797,7 +797,7 @@ body.bk-open{overflow:hidden}
     <p class="bk-hint" id="bk-hint" hidden></p>
     <div class="bk-frame">
       <div class="bk-loading" id="bk-loading"><svg class="emblem" aria-hidden="true"><use href="#emblem"/></svg><span>Loading availability&hellip;</span></div>
-      <iframe id="bk-iframe" title="Online booking" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <iframe id="bk-iframe" title="Online booking" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-storage-access-by-user-activation" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
     <div class="bk-foot"><span>Secure booking by Vagaro</span><a id="bk-ext" href="https://www.vagaro.com/davisandcompany/book-now" target="_blank" rel="noopener">Trouble loading? Open in a new tab</a></div>
   </div>
@@ -1189,12 +1189,20 @@ body.bk-open{overflow:hidden}
         title = document.getElementById('bk-title'), ext = document.getElementById('bk-ext'),
         hint = document.getElementById('bk-hint');
     if (!bk) return;
+    // iPhone/iPad (every iOS browser) and desktop Safari block the cookies Vagaro needs
+    // inside an embedded window, so checkout stalls after picking a time. On those,
+    // open Vagaro's own booking page in a new tab instead (direct stylist links work there).
+    var ua = navigator.userAgent;
+    var NEEDS_FULL_PAGE = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+      (/Safari\//.test(ua) && !/Chrome\/|Chromium|CriOS|FxiOS|EdgiOS|Edg\/|OPR\/|Android/.test(ua));
     var GENERAL = (C.vagaro.book || 'https://www.vagaro.com/davisandcompany').replace(/\/$/, '') + '/book-now';
     var people = [{ key: 'any', first: 'Any Stylist', name: 'Any Stylist', url: GENERAL, role: 'First available' }]
       .concat(C.stylists.map(function (s) { return { key: s.key, first: s.first, name: s.name, url: s.bookUrl || GENERAL, role: s.role, photo: C.photos[s.key] }; }));
     function byUrl(u) { for (var i = 0; i < people.length; i++) if (people[i].url === u) return people[i]; return people[0]; }
 
     // Stylist picker in the Book section
+    var note = document.querySelector('.pick-note');
+    if (note && NEEDS_FULL_PAGE) note.textContent = 'Booking opens in a new tab with secure scheduling by Vagaro.';
     var list = document.getElementById('pick-list');
     if (list) list.innerHTML = people.map(function (p) {
       var pic = p.key === 'any' ? '<span class="pick-any"><svg aria-hidden="true"><use href="#i-cal"/></svg></span>'
@@ -1247,7 +1255,9 @@ body.bk-open{overflow:hidden}
       var a = e.target.closest && e.target.closest('[data-book], a[data-href="book"]');
       if (!a) return;
       e.preventDefault();
-      open(a.getAttribute('data-book-url') || '');
+      var u = a.getAttribute('data-book-url') || '';
+      if (NEEDS_FULL_PAGE) { window.open(u || GENERAL, '_blank', 'noopener'); return; }
+      open(u);
     });
     if (location.hash === '#booking') { history.replaceState(null, '', location.pathname + location.search); }
   })();
