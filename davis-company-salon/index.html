@@ -356,14 +356,14 @@ p{margin:0}
 .spec-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px 48px}
 .spec-card{display:flex;flex-direction:column}
 .spec-card.tall{grid-row:span 2}
-.spec-card.tall .ph{aspect-ratio:4/5}
+.spec-card.tall .ph{aspect-ratio:3/4}
 .spec-card .ph{aspect-ratio:16/10}
 .spec-body{padding-top:28px}
 .spec-num{font-family:var(--serif);font-style:italic;color:var(--red);font-size:1.05rem}
 .spec-card h3{font-size:clamp(1.8rem,3vw,2.4rem);margin:8px 0 14px}
 .spec-card p{color:var(--muted);max-width:540px}
 .spec-card .link-arrow{margin-top:22px;align-self:flex-start}
-@media (max-width:860px){.spec-grid{grid-template-columns:1fr}.spec-card.tall{grid-row:auto}.spec-card.tall .ph{aspect-ratio:4/3}}
+@media (max-width:860px){.spec-grid{grid-template-columns:1fr}.spec-card.tall{grid-row:auto}.spec-card.tall .ph{aspect-ratio:4/5}}
 
 /* ---------- Service menu ---------- */
 .menu-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-bottom:44px}
@@ -536,6 +536,10 @@ html.js .hero-media .ph-b{transition-delay:.45s}
   .ph img{transition:none}
 }
 
+
+/* Booking widget: cap Vagaro iframe height (it asks for 10000px) */
+.vagaro-iframe,.vagaro-iframe iframe{height:820px!important;max-height:820px!important;width:100%!important;border:0}
+.widget-shell{overflow:hidden}
 /* Gallery */
 .gallery{columns:3;column-gap:18px}
 .g-item{break-inside:avoid;margin:0 0 18px}
@@ -739,8 +743,6 @@ html.js .hero-media .ph-b{transition-delay:.45s}
       <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-pink-blonde.jpg" aria-label="View larger: Long blonde hair with pink and magenta ends"><img src="img/gallery-pink-blonde.jpg" alt="Long blonde hair with pink and magenta ends" loading="lazy" decoding="async"></button></figure>
       <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-brunette-balayage.jpg" aria-label="View larger: Brunette balayage melting into copper ends"><img src="img/gallery-brunette-balayage.jpg" alt="Brunette balayage melting into copper ends" loading="lazy" decoding="async"></button></figure>
       <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/gallery-black-waves.jpg" aria-label="View larger: Long dark hair styled in loose waves"><img src="img/gallery-black-waves.jpg" alt="Long dark hair styled in loose waves" loading="lazy" decoding="async"></button></figure>
-      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/hero-color-ombre.jpg" aria-label="View larger: Red-to-gold ombré waves"><img src="img/hero-color-ombre.jpg" alt="Red-to-gold ombré waves" loading="lazy" decoding="async"></button></figure>
-      <figure class="g-item reveal"><button type="button" class="g-btn" data-full="img/hero-shag-cut.jpg" aria-label="View larger: Layered shag with copper color"><img src="img/hero-shag-cut.jpg" alt="Layered shag with copper color" loading="lazy" decoding="async"></button></figure>
     </div>
   </div>
 </section>
@@ -832,7 +834,7 @@ html.js .hero-media .ph-b{transition-delay:.45s}
           <li>Get instant confirmation and reminders from Vagaro.</li>
         </ol>
         <div class="book-actions">
-          <a class="btn" data-href="book" href="https://www.vagaro.com/davisandcompany"><svg aria-hidden="true"><use href="#i-cal"/></svg>Book on Vagaro</a>
+          <a class="btn" href="#book" data-book data-book-url=""><svg aria-hidden="true"><use href="#i-cal"/></svg>Any Stylist</a>
           <a class="btn btn-ghost" data-href="tel" href="tel:+16018350560"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call the Salon</a>
         </div>
         <p class="book-small">Booking means you agree to our <a class="text-link" href="#policy">cancellation policy</a>.</p>
@@ -905,7 +907,7 @@ html.js .hero-media .ph-b{transition-delay:.45s}
         <ul>
           <li><a data-href="tel" href="tel:+16018350560" data-c="phone">(601) 835-0560</a></li>
           <li><a data-href="mail" href="mailto:melissad1429@gmail.com">Email us</a></li>
-          <li><a data-href="book" href="https://www.vagaro.com/davisandcompany">Book on Vagaro</a></li>
+          <li><a data-href="book" href="https://www.vagaro.com/davisandcompany">Book online</a></li>
         </ul>
       </div>
       <div>
@@ -956,10 +958,11 @@ html.js .hero-media .ph-b{transition-delay:.45s}
     directions: 'https://www.google.com/maps/dir/?api=1&destination=' + mapsQuery,
     instagram: C.social.instagram, facebook: C.social.facebook
   };
+  links.book = '#book';
   function wire(a, url) {
     if (!url) { var li = a.closest('li'); (li || a).hidden = true; return; }
     a.href = url;
-    if (/^https?:/.test(url)) { a.target = '_blank'; a.rel = 'noopener'; }
+    if (/^https?:/.test(url) && a.dataset.href !== 'book') { a.target = '_blank'; a.rel = 'noopener'; }
   }
   $$('[data-href]').forEach(function (a) { wire(a, links[a.dataset.href]); });
   var map = $('#map'); if (map) map.src = 'https://www.google.com/maps?q=' + mapsQuery + '&output=embed';
@@ -1007,8 +1010,8 @@ html.js .hero-media .ph-b{transition-delay:.45s}
     panel.hidden = i !== 0;
     panel.innerHTML =
       '<div class="panel-intro"><h3>' + esc(cat.title) + '</h3><p>' + esc(cat.intro) + '</p>' +
-      '<a class="btn" target="_blank" rel="noopener" href="' + esc(cat.bookUrl || C.vagaro.services) + '">Book This Service</a>' +
-      '<p class="small">Unsure? <a class="text-link" target="_blank" rel="noopener" href="' + esc(C.vagaro.book) + '">Start with a complimentary consultation</a>.</p></div>' +
+      '<a class="btn" href="#book" data-book>Book This Service</a>' +
+      '<p class="small">Unsure? <a class="text-link" href="#book" data-book>Start with a complimentary consultation</a>.</p></div>' +
       '<ul class="svc-list">' + cat.items.map(function (s) {
         return '<li class="svc"><span class="svc-name">' + esc(s.name) +
                (s.desc ? '<span class="svc-desc">' + esc(s.desc) + '</span>' : '') + '</span>' + priceHTML(s) + '</li>';
@@ -1046,7 +1049,7 @@ html.js .hero-media .ph-b{transition-delay:.45s}
       '<h3>' + esc(s.name) + '</h3><div class="role">' + esc(s.role) + '</div>' +
       '<div class="chips">' + s.specialties.map(function (c) { return '<span class="chip">' + esc(c) + '</span>'; }).join('') + '</div>' +
       '<p>' + esc(s.bio) + '</p>' +
-      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="' + esc(s.bookUrl || C.vagaro.staff) + '">Book with ' + esc(s.first) + '</a>' +
+      '<a class="btn btn-ghost" href="#book" data-book data-book-url="' + esc(s.bookUrl || '') + '">Book with ' + esc(s.first) + '</a>' +
       '</article>';
   }).join('');
 
@@ -1124,6 +1127,30 @@ html.js .hero-media .ph-b{transition-delay:.45s}
     });
     lb.addEventListener('click', close);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) close(); });
+  })();
+
+  /* ---------- In-page booking (no trip to Vagaro) ---------- */
+  (function () {
+    var defaultSrc = null;
+    function frame() { return document.querySelector('.vagaro-iframe iframe'); }
+    function go(url) {
+      var book = document.getElementById('book');
+      if (book) book.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      var tries = 0;
+      (function apply() {
+        var f = frame();
+        if (!f) { if (tries++ < 30) setTimeout(apply, 200); return; }
+        if (defaultSrc === null) defaultSrc = f.src;
+        var target = url || defaultSrc;
+        if (target && f.src !== target) f.src = target;
+      })();
+    }
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[data-book], a[data-href="book"]');
+      if (!a) return;
+      e.preventDefault();
+      go(a.getAttribute('data-book-url') || '');
+    });
   })();
 })();
 </script>
