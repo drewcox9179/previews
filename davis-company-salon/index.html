@@ -560,6 +560,8 @@ html.js .hero-media .ph-b{transition-delay:.45s}
 .bk-eyebrow{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);font-weight:600}
 .bk-head h2{font-size:1.45rem;margin-top:4px}
 .bk-close{border:0;background:none;font-size:2.2rem;line-height:1;cursor:pointer;color:var(--ink);padding:0 4px;min-width:44px;min-height:44px}
+.bk-hint{margin:0;padding:12px 20px;background:var(--alabaster);border-bottom:1px solid var(--line);font-size:.86rem;line-height:1.45;color:var(--ink-2)}
+.bk-hint[hidden]{display:none}
 .bk-chips{display:flex;gap:8px;overflow-x:auto;padding:12px 20px;border-bottom:1px solid var(--line);scrollbar-width:none}
 .bk-chips::-webkit-scrollbar{display:none}
 .bk-chip{flex:none;border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:999px;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--ink)}
@@ -792,7 +794,7 @@ body.bk-open{overflow:hidden}
       <div><span class="bk-eyebrow">Davis &amp; Company Salon</span><h2 id="bk-title">Book an Appointment</h2></div>
       <button type="button" class="bk-close" data-bk-close aria-label="Close booking">&times;</button>
     </div>
-    <div class="bk-chips" id="bk-chips" role="group" aria-label="Choose stylist"></div>
+    <p class="bk-hint" id="bk-hint" hidden></p>
     <div class="bk-frame">
       <div class="bk-loading" id="bk-loading"><svg class="emblem" aria-hidden="true"><use href="#emblem"/></svg><span>Loading availability&hellip;</span></div>
       <iframe id="bk-iframe" title="Online booking" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -1183,8 +1185,9 @@ body.bk-open{overflow:hidden}
   /* ---------- Booking sheet: everything stays on this site ---------- */
   (function () {
     var bk = document.getElementById('bk'), ifr = document.getElementById('bk-iframe'),
-        loading = document.getElementById('bk-loading'), chips = document.getElementById('bk-chips'),
-        title = document.getElementById('bk-title'), ext = document.getElementById('bk-ext');
+        loading = document.getElementById('bk-loading'),
+        title = document.getElementById('bk-title'), ext = document.getElementById('bk-ext'),
+        hint = document.getElementById('bk-hint');
     if (!bk) return;
     var GENERAL = (C.vagaro.book || 'https://www.vagaro.com/davisandcompany').replace(/\/$/, '') + '/book-now';
     var people = [{ key: 'any', first: 'Any Stylist', name: 'Any Stylist', url: GENERAL, role: 'First available' }]
@@ -1200,16 +1203,18 @@ body.bk-open{overflow:hidden}
         '<span><b>' + esc(p.key === 'any' ? 'Any Stylist' : p.name) + '</b><small>' + esc(p.role || '') + '</small></span><span class="go">Book &rarr;</span></button>';
     }).join('');
 
-    chips.innerHTML = people.map(function (p) {
-      return '<button type="button" class="bk-chip" data-url="' + esc(p.url) + '" aria-pressed="false">' + esc(p.key === 'any' ? 'Any Stylist' : p.first) + '</button>';
-    }).join('');
 
     var lastFocus = null, current = '', pushed = false, spare = false;
-    function load(url) {
-      var p = byUrl(url);
+    // Vagaro's per-stylist links don't reliably apply inside an embedded frame (it reuses
+    // the last stylist viewed), so the frame always shows the general booking page and we
+    // tell the guest which professional to pick. "Open in a new tab" uses the direct link.
+    function load(stylistUrl) {
+      var p = byUrl(stylistUrl);
       title.textContent = p.key === 'any' ? 'Book an Appointment' : 'Book with ' + p.first;
-      ext.href = url;
-      [].forEach.call(chips.children, function (c) { c.setAttribute('aria-pressed', c.getAttribute('data-url') === url ? 'true' : 'false'); });
+      ext.href = stylistUrl || GENERAL;
+      if (p.key === 'any') { hint.hidden = true; }
+      else { hint.innerHTML = 'Below, choose <b>' + esc(p.name) + '</b> under &ldquo;Choose a Professional&rdquo;, then pick your service and time.'; hint.hidden = false; }
+      var url = GENERAL;
       if (current === url) return;
       current = url; loading.classList.remove('done');
       // Swap in a fresh frame so stylist changes never add browser-history steps
@@ -1236,7 +1241,6 @@ body.bk-open{overflow:hidden}
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
     window.addEventListener('popstate', function (e) { if (pushed && !(e.state && e.state.bk)) close(true); });
-    chips.addEventListener('click', function (e) { var c = e.target.closest('.bk-chip'); if (c) load(c.getAttribute('data-url')); });
     bk.addEventListener('click', function (e) { if (e.target.closest('[data-bk-close]')) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     document.addEventListener('click', function (e) {
