@@ -64,7 +64,11 @@ window.CONFIG = {
     heroMain:   "img/hero-color-ombre.jpg",   // tall hero photo: salon interior or signature color
     heroDetail: "img/hero-shag-cut.jpg",   // small hero photo: close-up detail
     wigs:       "img/wigs-topper.jpg",   // Wigs & Toppers specialty
-    thinning:   "https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?fm=jpg&q=70&w=1400&auto=format&fit=crop",  // Free Unsplash photo by Jenna Oslin (unsplash.com/@jennaoslin), loaded from Unsplash. Swap for a real client result when one is available.   // Thinning Hair Solutions specialty
+    thinning:   "https://images.unsplash.com/photo-1596911647169-7085321c81b8?fm=jpg&q=70&w=1400&auto=format&fit=crop",  // Free Unsplash photo by Thalia Ruiz (unsplash.com/photos/6bqsO6F636w), loaded from Unsplash.
+    // Before & after for Thinning Hair: add a REAL client's photos (with their permission) to both lines below
+    // and the thinning card automatically shows them side by side with Before / After labels.
+    thinningBefore: "",
+    thinningAfter:  "",
     lashes:     "img/lashes.jpg",   // Lash specialty
     kristen:    "img/stylist-kristen.jpg",
     lexi:       "img/stylist-lexi.jpg",
@@ -293,6 +297,10 @@ p{margin:0}
 .ph[data-photo="wigs"] img{object-position:50% 0%}
 .ph[data-photo="heroMain"] img,.ph[data-photo="heroDetail"] img{object-position:50% 25%}
 .ph[data-photo="lashes"] img{object-position:50% 30%}
+.ph.ba{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff}
+.ba-half{position:relative;margin:0;overflow:hidden}
+.ba-half img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;transition:transform .5s var(--ease)}
+.ba-half figcaption{position:absolute;left:12px;bottom:12px;background:rgba(14,14,16,.78);color:#fff;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:6px 10px;border-radius:4px}
 .ph:hover img,.zoom:hover .ph img{transform:scale(1.05)}
 
 /* ---------- Header ---------- */
@@ -725,7 +733,7 @@ body.bk-open{overflow:hidden}
         </div>
       </article>
       <article class="spec-card zoom reveal d1">
-        <div class="ph" data-photo="thinning" data-alt="A stylist using a round brush on long, full hair" data-label="Photo · thinning · confident result"></div>
+        <div class="ph" data-photo="thinning" data-alt="Long, healthy dark hair seen from behind" data-label="Photo · thinning · confident result"></div>
         <div class="spec-body">
           <span class="spec-num">02</span>
           <h3>Thinning Hair Solutions</h3>
@@ -1049,6 +1057,16 @@ body.bk-open{overflow:hidden}
       el.appendChild(img);
     });
   }
+
+  /* ---------- Thinning hair before & after (only when real photos are supplied) ---------- */
+  (function () {
+    var b = C.photos.thinningBefore, a = C.photos.thinningAfter, el = $('.ph[data-photo="thinning"]');
+    if (!b || !a || !el) return;
+    el.removeAttribute('data-photo'); el.classList.add('ba', 'has-img');
+    el.innerHTML = [['Before', b], ['After', a]].map(function (x) {
+      return '<figure class="ba-half"><img src="' + esc(x[1]) + '" alt="' + x[0] + ' a thinning-hair service at Davis &amp; Company" loading="lazy" decoding="async"><figcaption>' + x[0] + '</figcaption></figure>';
+    }).join('');
+  })();
 
   /* ---------- Service menu ---------- */
   function priceHTML(s) {
