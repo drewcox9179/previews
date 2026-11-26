@@ -495,7 +495,7 @@ legend{padding:0;font-weight:600;margin-bottom:2px}
 (function () {
   // To have requests delivered automatically, paste a form service address here
   // (for example a Formspree endpoint). While empty, the form opens the visitor's email app.
-  var FORM_ENDPOINT = "";
+  var FORM_ENDPOINT = "https://formspree.io/f/xyewookz";
   var EMAIL = "sales@displaysolutionsbyjohn.com";
   var PHONE = "6013349849";
 
@@ -599,6 +599,8 @@ legend{padding:0;font-weight:600;margin-bottom:2px}
     var button = form.querySelector(".submit");
     button.disabled = true; button.textContent = "Sending request…";
     var data = new FormData(form); data.append("_subject", subject);
+    // Only one contact field is required, so leave an empty one out
+    ["phone", "email"].forEach(function (id) { if (!val(id)) data.delete(id); });
     fetch(FORM_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } })
       .then(function (r) {
         if (!r.ok) throw new Error(r.status);
